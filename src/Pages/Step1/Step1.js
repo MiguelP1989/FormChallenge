@@ -11,6 +11,7 @@ import MainContainer from "../../components/MainContainer/MainContainer";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Input/Input";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
+import { useData } from "../../Context/DataContext";
 
 // Local imports
 
@@ -29,20 +30,23 @@ const scheme = yup.object().shape({
 
 const Step1 = () => {
   // Hooks
+  const { setValues, data } = useData();
   const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
+    defaultValues: { firstName: data.firstName, lastName: data.lastName },
     mode: "onBlur", //onChange
     resolver: yupResolver(scheme),
   });
 
   console.log(errors);
 
-  const onSubmit = (data) => {
+  const onSubmit = (inputValues) => {
     history.push("./step2");
+    setValues(inputValues);
   };
 
   return (
@@ -50,7 +54,7 @@ const Step1 = () => {
       <Typography component="h2" variant="h5">
         🦄 Step 2
       </Typography>
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("firstName")}
           name="firstName"
