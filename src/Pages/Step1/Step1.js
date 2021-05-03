@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 // Global imports
 import MainContainer from "../../components/MainContainer/MainContainer";
 import Form from "../../components/Form/Form";
+import Input from "../../components/Input/Input";
 
 // Local imports
 
@@ -24,17 +25,17 @@ const Step1 = () => {
     <MainContainer>
       <h2>Step 2</h2>
       <Form>
-        <input
-          //   ref={register}
+        <Input
+          {...register("First Name")}
           name="firstName"
           type="text"
-          placeholder="First Name"
+          label="First Name"
         />
-        <input
-          //   ref={register}
+        <Input
+          {...register("Last Name")}
           name="LastName"
           type="text"
-          placeholder="Last Name"
+          label="Last Name"
         />
         <button type="submit">Next</button>
       </Form>
