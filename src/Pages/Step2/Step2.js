@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 // Global imports
 import MainContainer from "../../components/MainContainer/MainContainer";
@@ -16,6 +17,14 @@ import { useData } from "../../Context/DataContext";
 // Local imports
 
 ////////////////////////////////////////////////////////////////////////////////
+
+const normalizePhoneNumber = (value) => {
+  const phoneNumber = parsePhoneNumberFromString(value);
+  if (!phoneNumber) {
+    return value;
+  }
+  return phoneNumber.formatInternational();
+};
 
 const scheme = yup.object().shape({
   email: yup
@@ -89,6 +98,9 @@ const Step2 = () => {
             label="Phone Number"
             name="phoneNumber"
             required
+            onChange={(e) =>
+              (e.target.value = normalizePhoneNumber(e.target.value))
+            }
           />
         )}
         <PrimaryButton>Next</PrimaryButton>
