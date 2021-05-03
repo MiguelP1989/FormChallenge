@@ -52,7 +52,7 @@ const Step1 = () => {
   return (
     <MainContainer>
       <Typography component="h2" variant="h5">
-        🦄 Step 2
+        🦄 Step 1
       </Typography>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -68,7 +68,7 @@ const Step1 = () => {
           name="lastName"
           type="text"
           label="Last Name"
-          error={!!errors.LastName}
+          error={!!errors.lastName}
           helperText={errors?.lastName?.message}
         />
         <PrimaryButton disableRipple>Next</PrimaryButton>
