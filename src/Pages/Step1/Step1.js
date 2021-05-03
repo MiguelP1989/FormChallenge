@@ -2,20 +2,44 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 // Global imports
 import MainContainer from "../../components/MainContainer/MainContainer";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Input/Input";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 // Local imports
 
 ////////////////////////////////////////////////////////////////////////////////
 
+const scheme = yup.object().shape({
+  firstName: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "First Name should not contained numbers!")
+    .required("First Name is a required field"),
+  lastName: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "Last Name should not contained numbers!")
+    .required("Last Name is a required field"),
+});
+
 const Step1 = () => {
   // Hooks
-  const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur", //onChange
+    resolver: yupResolver(scheme),
+  });
+
+  console.log(errors);
 
   const onSubmit = (data) => {
     history.push("./step2");
@@ -23,21 +47,27 @@ const Step1 = () => {
 
   return (
     <MainContainer>
-      <h2>Step 2</h2>
+      <Typography component="h2" variant="h5">
+        🦄 Step 2
+      </Typography>
       <Form>
         <Input
-          {...register("First Name")}
+          {...register("firstName")}
           name="firstName"
           type="text"
           label="First Name"
+          error={!!errors.firstName}
+          helperText={errors?.firstName?.message}
         />
         <Input
-          {...register("Last Name")}
-          name="LastName"
+          {...register("lastName")}
+          name="lastName"
           type="text"
           label="Last Name"
+          error={!!errors.LastName}
+          helperText={errors?.lastName?.message}
         />
-        <button type="submit">Next</button>
+        <PrimaryButton disableRipple>Next</PrimaryButton>
       </Form>
     </MainContainer>
   );

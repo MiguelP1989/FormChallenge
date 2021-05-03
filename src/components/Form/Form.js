@@ -12,7 +12,7 @@ const Form = ({ children, ...props }) => {
   // Hooks
   const classes = useStyles();
   return (
-    <form className={classes.root} noValidade {...props}>
+    <form className={classes.root} novalidade="true" {...props}>
       {children}
     </form>
   );
