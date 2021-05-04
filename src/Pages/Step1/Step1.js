@@ -28,6 +28,10 @@ const scheme = yup.object().shape({
     .required("Last Name is a required field"),
 });
 
+/**
+ * @function Step1
+ * @description Component to render the Step1
+ */
 const Step1 = () => {
   // Hooks
   const { setValues, data } = useData();

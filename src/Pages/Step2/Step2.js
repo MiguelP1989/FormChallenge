@@ -33,6 +33,10 @@ const scheme = yup.object().shape({
     .required("Email is a required field"),
 });
 
+/**
+ * @function Step2
+ * @description Component to render the Step2
+ */
 const Step2 = () => {
   // Hooks
   const { setValues, data } = useData();
@@ -87,6 +91,7 @@ const Step2 = () => {
           }
           label="Do you have a phone?"
         /> */}
+
         <input type="checkbox" id="checkbox_id" {...register("hasPhone")} />
         <label>Do you have a phone?</label>
 
