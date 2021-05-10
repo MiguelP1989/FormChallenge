@@ -47,16 +47,14 @@ const FileInput = ({ control, name }) => {
             </Dropzone>
             <List>
               {value &&
-                value.map((f, index) => {
-                  return (
-                    <ListItem key={index}>
-                      <ListItemIcon>
-                        <InsertDriveFile />
-                      </ListItemIcon>
-                      <ListItemText primary={f.name} secondary={f.size} />
-                    </ListItem>
-                  );
-                })}
+                value.map((f, index) => (
+                  <ListItem key={index}>
+                    <ListItemIcon>
+                      <InsertDriveFile />
+                    </ListItemIcon>
+                    <ListItemText primary={f.name} secondary={f.size} />
+                  </ListItem>
+                ))}
             </List>
           </>
         );
