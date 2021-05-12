@@ -1,5 +1,6 @@
 // Third-party imports
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Typography,
   Table,
@@ -19,6 +20,7 @@ import InsertDriveFile from "@material-ui/icons/InsertDriveFile";
 // Global imports
 import MainContainer from "../../components/MainContainer/MainContainer";
 import { useData } from "../../Context/DataContext";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 // Local imports
 
@@ -34,6 +36,21 @@ const Result = () => {
 
   // variables
   const { files } = data;
+
+  const handleSubmit = async () => {
+    const formData = [];
+
+    if (data.files) {
+      data.files.forEach((file) => {
+        formData.push({ file: file });
+      });
+    }
+
+    entries.forEach((entry) => {
+      formData.push({ entry: entry[0], value: entry[1] });
+    });
+    console.log("formData", formData);
+  };
 
   return (
     <MainContainer>
@@ -65,9 +82,12 @@ const Result = () => {
         {files &&
           files.map((f, index) => (
             <>
-              <Typography component="h2" variant="h5" align="center">
-                📦 Files
-              </Typography>
+              {index === 0 && (
+                <Typography component="h2" variant="h5" align="center">
+                  📦 Files
+                </Typography>
+              )}
+
               <ListItem key={index}>
                 <ListItemIcon>
                   <InsertDriveFile />
@@ -77,6 +97,12 @@ const Result = () => {
             </>
           ))}
       </List>
+      <PrimaryButton disableRipple onClick={handleSubmit}>
+        Submit
+      </PrimaryButton>
+      <Link className={classes.link} to="/">
+        Start Over
+      </Link>
     </MainContainer>
   );
 };
@@ -87,6 +113,13 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     marginBottom: "30px",
+  },
+  link: {
+    textDecoration: "none",
+    color: "black",
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
 }));
 

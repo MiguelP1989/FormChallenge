@@ -57,9 +57,7 @@ const Step2 = () => {
   });
 
   const hasPhone = watch("hasPhone");
-
-  // console.log(hasPhone);
-  // console.log("data en step 2", data);
+  const { ref, ...rest } = register("hasPhone");
 
   const onSubmit = (inputValue) => {
     history.push("/step3");
@@ -79,10 +77,11 @@ const Step2 = () => {
           error={!!errors.email}
           helperText={errors?.email?.message}
         />
-        {/* <FormControlLabel
+        <FormControlLabel
           control={
             <Checkbox
-            {...register("hasPhone")}
+              inputRef={ref}
+              {...rest}
               defaultValue={data.hasPhone}
               defaultChecked={data.hasPhone}
               color="primary"
@@ -90,10 +89,10 @@ const Step2 = () => {
             />
           }
           label="Do you have a phone?"
-        /> */}
+        />
 
-        <input type="checkbox" id="checkbox_id" {...register("hasPhone")} />
-        <label>Do you have a phone?</label>
+        {/* <input type="checkbox" id="checkbox_id" {...register("hasPhone")} />
+        <label>Do you have a phone?</label> */}
 
         {hasPhone && (
           <Input

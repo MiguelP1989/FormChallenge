@@ -1,8 +1,9 @@
 // Third-party imports
-import React from "react";
+import React, { useState, useCallback } from "react";
 import Dropzone from "react-dropzone";
 import { Controller } from "react-hook-form";
 import {
+  Button,
   Paper,
   List,
   ListItem,
@@ -14,6 +15,7 @@ import CloudUpload from "@material-ui/icons/CloudUpload";
 import InsertDriveFile from "@material-ui/icons/InsertDriveFile";
 
 // Global imports
+import { useData } from "../../Context/DataContext";
 
 // Local imports
 
@@ -22,14 +24,27 @@ import InsertDriveFile from "@material-ui/icons/InsertDriveFile";
 const FileInput = ({ control, name }) => {
   // Hooks
   const classes = useStyles();
+  const [file, setFile] = useState();
 
+  const onHandleDelete = useCallback(
+    (fileNameSelected) => {
+      const newFiles = [...file];
+      const updateFiles = newFiles.filter((f) => f.name !== fileNameSelected);
+      setFile(updateFiles);
+    },
+    [file, setFile]
+  );
+
+  console.log("hello");
+  console.log(file);
   return (
     <Controller
       control={control}
       name={name}
       defaultValue={[]}
       render={({ field: { onChange, onBlur, value } }) => {
-        console.log(value);
+        // console.log(value);
+        setFile(value);
         return (
           <>
             <Dropzone onDrop={onChange}>
@@ -46,14 +61,24 @@ const FileInput = ({ control, name }) => {
               )}
             </Dropzone>
             <List>
-              {value &&
-                value.map((f, index) => (
-                  <ListItem key={index}>
-                    <ListItemIcon>
-                      <InsertDriveFile />
-                    </ListItemIcon>
-                    <ListItemText primary={f.name} secondary={f.size} />
-                  </ListItem>
+              {file &&
+                file.map((f, index) => (
+                  <>
+                    <ListItem key={index}>
+                      <ListItemIcon>
+                        <InsertDriveFile />
+                      </ListItemIcon>
+                      <ListItemText primary={f.name} secondary={f.size} />
+                      {file && (
+                        <Button
+                          color="secondary"
+                          onClick={() => onHandleDelete(f.name)}
+                        >
+                          Delete
+                        </Button>
+                      )}
+                    </ListItem>
+                  </>
                 ))}
             </List>
           </>

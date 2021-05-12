@@ -5,10 +5,8 @@ import App from "./App";
 import DataProvider from "./Context/DataContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <DataProvider>
-      <App />
-    </DataProvider>
-  </React.StrictMode>,
+  <DataProvider>
+    <App />
+  </DataProvider>,
   document.getElementById("root")
 );

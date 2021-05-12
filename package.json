@@ -20,6 +20,15 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
   },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "morgan": "^1.10.0",
+    "start:server": "node ./server.js",
+    "dev": "concurrently --kill-others \"npm run start:server\" \"npm run start\""
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -3,8 +3,6 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 // Global imports
 import MainContainer from "../../components/MainContainer/MainContainer";
